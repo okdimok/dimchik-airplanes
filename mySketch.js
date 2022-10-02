@@ -13,7 +13,7 @@ let armenia_planes = function ( sketch ) {
 	const n_planes = 50;
 	const plane_sz = 100;
 	var fullscreen = false;
-	var planeSVG;
+	var planeSVGs;
 
 	s.drawBg = function() { s.background("#000"); }
 
@@ -50,14 +50,15 @@ let armenia_planes = function ( sketch ) {
 			s.push()
 			s.translate(c.x, c.y);
 			s.rotate(x_axis.angleBetween(p.dq)+s.PI/4)
-			if (i % 3 == 0) {
-				s.tint(217, 0, 18);
-			} else if (i % 3 == 1) {
-				s.tint(0, 51, 160);
-			} else if (i % 3 == 2) {
-				s.tint(242, 168, 0);
-			}
-			s.image(planeSVG, -plane_sz/2, -plane_sz/2, plane_sz, plane_sz);
+			let img = planeSVGs[i%3]
+			// if (i % 3 == 0) {
+			// 	s.tint(217, 0, 18);
+			// } else if (i % 3 == 1) {
+			// 	s.tint(0, 51, 160);
+			// } else if (i % 3 == 2) {
+			// 	s.tint(242, 168, 0);
+			// }
+			s.image(img, -plane_sz/2, -plane_sz/2, plane_sz, plane_sz);
 			s.pop()
 			// s.fill("red")
 			// s.rect(c.x, c.y, 2 * rad, 2* rad)
@@ -73,7 +74,11 @@ let armenia_planes = function ( sketch ) {
 		s.frameRate(s.fps);
 		s.createLoop(loop);
 		s.prepareNewSeeds();
-		planeSVG = s.loadImage('./plane-icon.svg')
+		planeSVGs = [
+			s.loadImage('./plane-icon-red.svg'),
+			s.loadImage('./plane-icon-blue.svg'),
+			s.loadImage('./plane-icon-orange.svg')
+		]
     }
 
 
